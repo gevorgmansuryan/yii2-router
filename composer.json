@@ -1,0 +1,31 @@
+{
+  "name": "gevman/yii2-router",
+  "description": "Elegant Route definitions for Yii2",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "Yii2",
+    "Yii",
+    "Router",
+    "Yii2 Router",
+    "Yii2 Routing",
+    "Laravel",
+    "Laravel Router",
+    "Laravel Routing"
+  ],
+  "authors": [
+    {
+      "name": "Gevorg Mansuryan",
+      "email": "gevorgmansuryan@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "~2.0.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gevman\\Router\\": "src/"
+    }
+  }
+}
