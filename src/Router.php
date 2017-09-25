@@ -67,7 +67,6 @@ class Router
                         }
                     }
                 }
-                $this->urlManager->rules = [];
                 $this->urlManager->addRules([$rule], false);
                 if ($route->alias) {
                     Yii::setAlias($route->alias, $config['route']);
