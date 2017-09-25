@@ -6,6 +6,7 @@ use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Module as BaseModule;
 use yii\helpers\FileHelper;
+use yii\web\UrlManager;
 
 /**
  * Class Module
@@ -17,7 +18,11 @@ class Module extends BaseModule implements BootstrapInterface
 
     public function bootstrap($app)
     {
-        $router = new Router($app->urlManager);
+        /** @var UrlManager $urlManager */
+        $urlManager = $app->urlManager;
+        $urlManager->enableStrictParsing = true;
+        $urlManager->enablePrettyUrl = true;
+        $router = new Router($urlManager);
         $router->dispatch();
     }
 
