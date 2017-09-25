@@ -2,14 +2,14 @@
 
 namespace Gevman\Router;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 use RuntimeException;
 
 /**
  * Class Rule
  * @author Gevorg Mansuryan <gevorgmansuryan@gmail.com>
  */
-class Rule extends Object implements RuleInterface
+class Rule extends BaseObject implements RuleInterface
 {
     public $pattern;
     public $route;
@@ -57,7 +57,6 @@ class Rule extends Object implements RuleInterface
     public function getConfig()
     {
         return array_merge($this->config, [
-            'name' => $this->alias,
             'defaults' => $this->defaults
         ]);
     }
@@ -79,7 +78,7 @@ class Rule extends Object implements RuleInterface
         $this->middleware = array_filter($middleware);
         $this->config = [
             'pattern' => $prefix,
-            'route' => $route,
+            'route' => '/' . $route,
             'verb' => $this->verbs
         ];
 

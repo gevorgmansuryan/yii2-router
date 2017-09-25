@@ -57,8 +57,8 @@ class Router
             foreach (self::$rules as $route) {
                 /** @var Rule $route */
                 $config = $route->getConfig();
-                $rule = new UrlRule($route->getConfig());
-                if ($app->request->pathInfo == $config['pattern']) {
+                $rule = new UrlRule($config);
+                if (trim($app->request->pathInfo, '/') == trim($config['pattern'], '/')) {
                     foreach ($route->getMiddleware() as $callBack) {
                         if (is_callable($callBack)) {
                             $callBack($rule);
@@ -67,9 +67,10 @@ class Router
                         }
                     }
                 }
-                $this->urlManager->addRules([$rule]);
+                $this->urlManager->rules = [];
+                $this->urlManager->addRules([$rule], false);
                 if ($route->alias) {
-                    Yii::setAlias($route->alias, $config['pattern']);
+                    Yii::setAlias($route->alias, $config['route']);
                 }
             }
         });

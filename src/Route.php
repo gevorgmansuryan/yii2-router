@@ -9,14 +9,14 @@ use yii\helpers\ArrayHelper;
  * Class Route
  * @author Gevorg Mansuryan <gevorgmansuryan@gmail.com>
  *
- * @method static RuleInterface any(string $from, string | Closure $to)
- * @method static RuleInterface get(string $from, string | Closure $to)
- * @method static RuleInterface head(string $from, string | Closure $to)
- * @method static RuleInterface post(string $from, string | Closure $to)
- * @method static RuleInterface put(string $from, string | Closure $to)
- * @method static RuleInterface patch(string $from, string | Closure $to)
- * @method static RuleInterface delete(string $from, string | Closure $to)
- * @method static RuleInterface options(string $from, string | Closure $to)
+ * @method static RuleInterface any(string $from, string | string $to)
+ * @method static RuleInterface get(string $from, string | string $to)
+ * @method static RuleInterface head(string $from, string | string $to)
+ * @method static RuleInterface post(string $from, string | string $to)
+ * @method static RuleInterface put(string $from, string | string $to)
+ * @method static RuleInterface patch(string $from, string | string $to)
+ * @method static RuleInterface delete(string $from, string | string $to)
+ * @method static RuleInterface options(string $from, string | string $to)
  */
 class Route
 {
