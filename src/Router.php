@@ -58,7 +58,7 @@ class Router
                 /** @var Rule $route */
                 $config = $route->getConfig();
                 $rule = new UrlRule($config);
-                if (trim($app->request->pathInfo, '/') == trim($config['pattern'], '/')) {
+                if ($rule->parseRequest($this->urlManager, $app->request)) {
                     foreach ($route->getMiddleware() as $callBack) {
                         if (is_callable($callBack)) {
                             $callBack($rule);
