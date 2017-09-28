@@ -69,6 +69,6 @@ after You can use Yii2 native methods for url creation
 ex.
 
 ```php
-echo \yii\helpers\Url::toRoute(['@admin.menu.edit', ['id' => 1, 'lang' => 'hy']);
+echo \yii\helpers\Url::toRoute(['@admin.menu.edit', 'id' => 1, 'lang' => 'hy']);
 ```
 output will be: `/admin/menu/1/edit/hy`
