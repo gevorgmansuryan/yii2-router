@@ -36,18 +36,32 @@ in `routeFolder` directory You need create Your route files.
 ex. `web.php` with content
 
 ```php
-Route::prefix('some')->group(function() {
-    Route::prefix('test')->group(function() {
-        Route::get('route', 'site/index')->named('home')->defaults(['a' => 'b']);
-        Route::get('other-route', 'site/about')->named('about')->defaults(['c' => 'd']);
+$auth = function () {
+  if (Yii::$app->user->isGuest) {
+      Yii::$app->response->redirect(Url::toRoute(['@login']));
+  }
+};
+
+Route::prefix('/admin')->routePrefix('admin')->group(function () use ($auth) {
+    Route::any('/login', 'default/login')->named('login');
+
+    Route::middleware($auth)->group(function () {
+        Route::post('/logout', 'default/logout')->named('logout');
+        
+        Route::any('/', 'pages/index')->named('admin.pages');
+        Route::any('/pages/create', 'pages/create')->named('admin.pages.create');
+        Route::any('/pages/<id>/edit/<lang>', 'pages/update')->defaults(['lang' => ''])->named('admin.pages.edit');
+        Route::post('/pages/<id>/delete', 'pages/delete')->named('admin.pages.delete');
+
+        Route::prefix('menu')->routePrefix('menu')->group(function () {
+            Route::any('/', 'index')->named('admin.menu.index');
+            Route::any('create', 'create')->named('admin.menu.create');
+            Route::any('<id>/edit/<lang>', 'update')->defaults(['lang' => ''])->named('admin.menu.edit');
+            Route::post('<id>/delete', 'delete')->named('admin.menu.delete');
+        });
+
     });
 });
-```
-
-or just
-
-```php
-Route::get('route', 'site/index')->named('home');
 ```
 
 after You can use Yii2 native methods for url creation
@@ -55,5 +69,5 @@ after You can use Yii2 native methods for url creation
 ex.
 
 ```php
-echo \yii\helpers\Url::toRoute('@about') //output will be: /some/test/other-route
+echo \yii\helpers\Url::toRoute(['@admin.menu.edit', ['id' => 1, 'lang' => 'hy']) //output will be: /admin/menu/1/edit/hy
 ```
