@@ -58,12 +58,13 @@ class Router
                 /** @var Rule $route */
                 $config = $route->getConfig();
                 $rule = new UrlRule($config);
-                if ($rule->parseRequest($this->urlManager, $app->request)) {
+                if ($request = $rule->parseRequest($this->urlManager, $app->request)) {
+                    $params = ArrayHelper::merge($request, [$event]);
                     foreach ($route->getMiddleware() as $callBack) {
                         if (is_callable($callBack)) {
-                            $callBack($rule);
+                            call_user_func_array($callBack, $params);
                         } else {
-                            call_user_func_array([$callBack, 'handle'], [$rule]);
+                            call_user_func_array([$callBack, 'handle'], $params);
                         }
                     }
                 }
