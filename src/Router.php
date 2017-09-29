@@ -4,6 +4,7 @@ namespace Gevman\Router;
 
 use Yii;
 use yii\base\Event;
+use yii\helpers\ArrayHelper;
 use yii\web\Application;
 use yii\web\UrlManager;
 use yii\web\UrlRule;
