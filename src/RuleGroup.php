@@ -2,13 +2,13 @@
 
 namespace Gevman\Router;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
 /**
  * Class RuleGroup
  * @author Gevorg Mansuryan <gevorgmansuryan@gmail.com>
  */
-class RuleGroup extends Object implements GroupRuleInterface
+class RuleGroup extends BaseObject implements GroupRuleInterface
 {
     /**
      * @var string
