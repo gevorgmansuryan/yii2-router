@@ -15,6 +15,8 @@ class RuleGroup extends BaseObject implements GroupRuleInterface
      */
     public $prefix;
 
+    public $defaults = [];
+
     public $middleware = [];
 
     public $domain;
@@ -48,6 +50,12 @@ class RuleGroup extends BaseObject implements GroupRuleInterface
     public function prefix($prefix)
     {
         $this->prefix = trim($prefix, '/');
+        return $this;
+    }
+
+    public function defaults(array $defaults)
+    {
+        $this->defaults = $defaults;
         return $this;
     }
 

@@ -15,10 +15,10 @@ interface GroupRuleInterface
     public function routePrefix($routePrefix);
 
     /**
-     * @param $middleware
+     * @param array $middleware
      * @return GroupRuleInterface
      */
-    public function middleware($middleware);
+    public function middleware(array $middleware);
 
     /**
      * @param $domain
@@ -31,6 +31,12 @@ interface GroupRuleInterface
      * @return GroupRuleInterface
      */
     public function prefix($prefix);
+
+    /**
+     * @param array $defaults
+     * @return GroupRuleInterface
+     */
+    public function defaults(array $defaults);
 
     public function group(\Closure $routes);
 }

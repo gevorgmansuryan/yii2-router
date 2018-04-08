@@ -36,7 +36,7 @@ class Rule extends BaseObject implements RuleInterface
      */
     public function defaults(array $defaults)
     {
-        $this->defaults = $defaults;
+        $this->defaults =  array_merge($this->defaults, $defaults);
         return $this;
     }
 
@@ -72,6 +72,7 @@ class Rule extends BaseObject implements RuleInterface
             $domain[] = $group->domain;
             $routePrefix[] = $group->routePrefix;
             $middleware = array_merge($middleware, $group->middleware);
+            $this->defaults = array_merge($this->defaults, $group->defaults);
         }
         $prefix = implode('/', array_filter(array_merge($domain, $prefix, [$this->pattern])));
         $route = implode('/', array_filter(array_merge($routePrefix, [$this->route])));
