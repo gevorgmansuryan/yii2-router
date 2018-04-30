@@ -33,7 +33,9 @@ class Module extends BaseModule implements BootstrapInterface
 
     public function loadRouteFiles()
     {
-        foreach (FileHelper::findFiles(Yii::getAlias($this->routeFolder)) as $file) {
+        $files = FileHelper::findFiles(Yii::getAlias($this->routeFolder));
+        asort($files);
+        foreach ($files as $file) {
             require_once $file;
         }
     }
