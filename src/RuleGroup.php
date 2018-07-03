@@ -14,6 +14,10 @@ class RuleGroup extends BaseObject implements GroupRuleInterface
      * @var string
      */
     public $prefix;
+    /**
+     * @var string
+     */
+    public $suffix;
 
     public $defaults = [];
 
@@ -50,6 +54,12 @@ class RuleGroup extends BaseObject implements GroupRuleInterface
     public function prefix($prefix)
     {
         $this->prefix = trim($prefix, '/');
+        return $this;
+    }
+
+    public function suffix($suffix)
+    {
+        $this->suffix = $suffix;
         return $this;
     }
 

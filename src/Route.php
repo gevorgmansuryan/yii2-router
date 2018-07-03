@@ -103,4 +103,15 @@ class Route
         $group->prefix($prefix);
         return $group;
     }
+
+    /**
+     * @param $suffix
+     * @return GroupRuleInterface
+     */
+    public static function suffix($suffix)
+    {
+        $group = new RuleGroup();
+        $group->suffix($suffix);
+        return $group;
+    }
 }

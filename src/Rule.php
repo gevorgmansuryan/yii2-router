@@ -64,10 +64,12 @@ class Rule extends BaseObject implements RuleInterface
     public function make(array $groups = [])
     {
         $prefix = [];
+        $suffix = [];
         $routePrefix = [];
         $domain = [];
         $middleware = [];
         foreach ($groups as $group) {
+            $suffix[] = $group->suffix;
             $prefix[] = $group->prefix;
             $domain[] = $group->domain;
             $routePrefix[] = $group->routePrefix;
@@ -80,7 +82,8 @@ class Rule extends BaseObject implements RuleInterface
         $this->config = [
             'pattern' => $prefix,
             'route' => '/' . $route,
-            'verb' => $this->verbs
+            'verb' => $this->verbs,
+            'suffix' => implode('', $suffix)
         ];
 
         return $this;

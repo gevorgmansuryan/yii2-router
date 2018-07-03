@@ -33,6 +33,12 @@ interface GroupRuleInterface
     public function prefix($prefix);
 
     /**
+     * @param $suffix
+     * @return GroupRuleInterface
+     */
+    public function suffix($suffix);
+
+    /**
      * @param array $defaults
      * @return GroupRuleInterface
      */
