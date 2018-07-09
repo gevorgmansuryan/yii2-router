@@ -18,7 +18,7 @@ interface GroupRuleInterface
      * @param array $middleware
      * @return GroupRuleInterface
      */
-    public function middleware(array $middleware);
+    public function middleware($middleware);
 
     /**
      * @param $domain
