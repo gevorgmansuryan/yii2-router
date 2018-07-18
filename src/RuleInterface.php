@@ -9,6 +9,12 @@ namespace Gevman\Router;
 interface RuleInterface
 {
     /**
+     * @param callable $callable
+     * @return RuleInterface
+     */
+    public function configure($callable);
+
+    /**
      * @param array $defaults
      * @return RuleInterface
      */

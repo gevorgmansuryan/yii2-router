@@ -4,6 +4,8 @@ namespace Gevman\Router;
 
 use yii\base\BaseObject;
 use RuntimeException;
+use yii\web\UrlRule;
+use yii\web\UrlRuleInterface;
 
 /**
  * Class Rule
@@ -16,6 +18,7 @@ class Rule extends BaseObject implements RuleInterface
     public $defaults = [];
     public $alias;
     public $verbs = [];
+    public $callable;
 
     private $middleware;
     private $config;
@@ -29,6 +32,13 @@ class Rule extends BaseObject implements RuleInterface
                 }
             }
         }
+    }
+
+    public function configure($callable)
+    {
+        $this->callable = $callable;
+
+        return $this;
     }
 
     /**
