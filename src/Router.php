@@ -7,6 +7,7 @@ use yii\base\Event;
 use yii\helpers\ArrayHelper;
 use yii\web\Application;
 use yii\web\UrlManager;
+use yii\web\UrlNormalizerRedirectException;
 use yii\web\UrlRule;
 
 /**
@@ -63,16 +64,21 @@ class Router
                     call_user_func($route->callable, $rule);
                 }
 
-                if ($request = $rule->parseRequest($this->urlManager, $app->request)) {
-                    $params = ArrayHelper::merge($request, [$event]);
-                    foreach ($route->getMiddleware() as $callBack) {
-                        if (is_callable($callBack)) {
-                            call_user_func_array($callBack, $params);
-                        } else {
-                            call_user_func_array([$callBack, 'handle'], $params);
+                try {
+                    if ($request = $rule->parseRequest($this->urlManager, $app->request)) {
+                        $params = ArrayHelper::merge($request, [$event]);
+                        foreach ($route->getMiddleware() as $callBack) {
+                            if (is_callable($callBack)) {
+                                call_user_func_array($callBack, $params);
+                            } else {
+                                call_user_func_array([$callBack, 'handle'], $params);
+                            }
                         }
                     }
+                } catch (UrlNormalizerRedirectException $e) {
+                    //ignore this at this time
                 }
+
                 $this->urlManager->addRules([$rule], true);
                 if ($route->alias) {
                     Yii::setAlias($route->alias, $config['route']);
