@@ -64,19 +64,21 @@ class Router
                     call_user_func($route->callable, $rule);
                 }
 
-                try {
-                    if ($request = $rule->parseRequest($this->urlManager, $app->request)) {
-                        $params = ArrayHelper::merge($request, [$event]);
-                        foreach ($route->getMiddleware() as $callBack) {
-                            if (is_callable($callBack)) {
-                                call_user_func_array($callBack, $params);
-                            } else {
-                                call_user_func_array([$callBack, 'handle'], $params);
+                if (Yii::$app instanceof \yii\web\Application) {
+                    try {
+                        if ($request = $rule->parseRequest($this->urlManager, $app->request)) {
+                            $params = ArrayHelper::merge($request, [$event]);
+                            foreach ($route->getMiddleware() as $callBack) {
+                                if (is_callable($callBack)) {
+                                    call_user_func_array($callBack, $params);
+                                } else {
+                                    call_user_func_array([$callBack, 'handle'], $params);
+                                }
                             }
                         }
+                    } catch (UrlNormalizerRedirectException $e) {
+                        //ignore this at this time
                     }
-                } catch (UrlNormalizerRedirectException $e) {
-                    //ignore this at this time
                 }
 
                 $this->urlManager->addRules([$rule], true);
